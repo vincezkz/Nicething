@@ -2,8 +2,8 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-import Server
-import Common
+from Server.UserServer import UserServer
+from Common.Enum import LoginStatus
 app = Flask(__name__)
 
 @app.route('/')
@@ -15,16 +15,16 @@ def hello_world():
 def login():
     message = ''
     if request.method == 'POST':
-        _userserver = Server.UserServer()
+        _userserver = UserServer()
         username=request.form['username']
         password=request.form['password']
-        if _userserver.loginserver(username,password) == Common.LoginStatus.success:
+        if _userserver.loginserver(username,password) == LoginStatus.success:
             message = "Login Success!"
-        elif _userserver.loginserver() == Common.LoginStatus.fail:
+        elif _userserver.loginserver(username,password) == LoginStatus.fail:
             message = "Password is wrong!"
         else:
             message = "User is NoExist!"
-        return render_template('login.html',message)
+        return render_template('login.html',message=message)
     else:
         return render_template('login.html')
 

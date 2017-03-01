@@ -1,5 +1,5 @@
 #coding: utf-8
-import Common
+from Common.Enum import  LoginStatus
 class UserServer(object):
     def __init__(self):
         pass
@@ -7,14 +7,13 @@ class UserServer(object):
     def loginserver(self,username,password):
         un='admin'
         pwd='123'
-        loginstatus=Common.LoginStatus()
         if(un==username):
             if(password==pwd):
-                return loginstatus.success
+                return LoginStatus.success
             else:
-                return loginstatus.fail
+                return LoginStatus.fail
         else:
-            return loginstatus.noexist
+            return LoginStatus.noexist
 
 
     def logoutserver(self):
